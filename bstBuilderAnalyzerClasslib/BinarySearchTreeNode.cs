@@ -70,11 +70,11 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         if (Right != null) Right.Preorder("└──", stringBranchConnection);
     }
 
-    public void Inorder(string stringConnector, List<int> stringBranchConnection)
+    public void Inorder()
     {
-        if (Left != null) Left.Inorder(stringConnector, stringBranchConnection);
+        if (Left != null) Left.Inorder();
         Console.WriteLine(ToString());
-        if (Right != null) Right.Inorder(stringConnector, stringBranchConnection);
+        if (Right != null) Right.Inorder();
     }
 
     public void Postorder()
