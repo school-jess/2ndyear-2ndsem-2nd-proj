@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstBuilderAnalyzerConsole",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstBuilderAnalyzerClasslib", "bstBuilderAnalyzerClasslib\bstBuilderAnalyzerClasslib.csproj", "{C65612A8-E8A6-4E88-A85E-AFDE68A3AF59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstBuilderAnalyzerGUI", "bstBuilderAnalyzerGUI\bstBuilderAnalyzerGUI.csproj", "{ABCA82C2-2E9E-4D80-97EB-779A0386A5DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{C65612A8-E8A6-4E88-A85E-AFDE68A3AF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65612A8-E8A6-4E88-A85E-AFDE68A3AF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65612A8-E8A6-4E88-A85E-AFDE68A3AF59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCA82C2-2E9E-4D80-97EB-779A0386A5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCA82C2-2E9E-4D80-97EB-779A0386A5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCA82C2-2E9E-4D80-97EB-779A0386A5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCA82C2-2E9E-4D80-97EB-779A0386A5DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
