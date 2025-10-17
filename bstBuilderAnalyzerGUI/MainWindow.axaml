@@ -1,9 +1,23 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="bstBuilderAnalyzerGUI.MainWindow"
-        Title="bstBuilderAnalyzerGUI">
-    Welcome to Avalonia!
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    x:Class="bstBuilderAnalyzerGUI.MainWindow"
+    Title="bstBuilderAnalyzerGUI">
+    <StackPanel>
+        <Grid ColumnDefinitions="100, 100" RowDefinitions="Auto">
+            <TextBox Grid.Row="0" Grid.Column="0" Watermark="Input integer..."/>
+            <Button Grid.Row="0" Grid.Column="1">Submit</Button>
+        </Grid>
+        <Grid ColumnDefinitions="100, 100" RowDefinitions="Auto">
+            <Button Grid.Row="0" Grid.Column="0">Traverse</Button>
+            <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="0">
+                <ComboBoxItem>Preorder</ComboBoxItem>
+                <ComboBoxItem>Inorder</ComboBoxItem>
+                <ComboBoxItem>Postorder</ComboBoxItem>
+                <ComboBoxItem>Level-order</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+    </StackPanel>
 </Window>
