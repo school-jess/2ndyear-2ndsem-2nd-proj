@@ -77,10 +77,29 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         if (Right != null) Right.Inorder();
     }
 
-    public void Postorder()
+    public void Postorder(int subTreeHeight)
     {
-        if (Left != null) Left.Postorder();
-        if (Right != null) Right.Postorder();
+        int leftSubTreeHeight = 0;
+        int rightSubTreeHeight = 0;
+        if (Left != null && Right != null)
+        {
+            leftSubTreeHeight = getSubTreeHeight();
+            rightSubTreeHeight = getSubTreeHeight();
+        }
+        if (level > 1)
+        {
+            leftSubTreeHeight = subTreeHeight;
+            rightSubTreeHeight = subTreeHeight;
+        }
+        if (Left != null) Left.Postorder(leftSubTreeHeight);
+        if (Right != null) Right.Postorder(rightSubTreeHeight);
         Console.WriteLine(ToString());
+    }
+
+    int getSubTreeHeight()
+    {
+        if (Left != null) Left.getSubTreeHeight();
+        if (Right != null) Right.getSubTreeHeight();
+        return 0;
     }
 }

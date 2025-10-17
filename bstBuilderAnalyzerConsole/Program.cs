@@ -15,13 +15,19 @@ class Program
             while (choosingMainOption)
             {
                 Console.Clear();
-                // Console.WriteLine("═");
+                Console.WriteLine("╔═════════════╗");
                 for (int optionIndex = 0; optionIndex < mainOptions.Length; optionIndex++)
                 {
-                    Console.Write($"{optionIndex + 1}. ");
-                    if (optionIndex == selectedMainOption) Console.WriteLine($"\x1b[;32m{mainOptions[optionIndex]}\x1b[0m");
-                    else Console.WriteLine(mainOptions[optionIndex]);
+                    Console.Write($"║ {optionIndex + 1}. ");
+                    if (optionIndex == selectedMainOption)
+                        Console.Write($"\x1b[;32m{mainOptions[optionIndex]}\x1b[0m");
+                    else Console.Write(mainOptions[optionIndex]);
+                    for (int i = 0; i < 13 - (4 + mainOptions[optionIndex].Length); i++) Console.Write(" ");
+                    Console.WriteLine("║");
                 }
+
+                Console.WriteLine("╚═════════════╝");
+
                 ConsoleKey selectedMainOptionKey = Console.ReadKey().Key;
                 switch (selectedMainOptionKey)
                 {
@@ -62,41 +68,77 @@ class Program
                                 hasInputtedInt = true;
                             }
                             catch
-                            { }
+                            {
+                            }
                         }
+
                         bst.Insert(inputtedInt);
                         break;
                     case 2:
-                        string[] traverseOptions = ["preorder", "inorder", "postorder", "level-order"];
-                        bool choosingTraverseOption = true;
-                        int selectedTraverseOption = 0;
-                        while (choosingTraverseOption)
+                        continueMainOptionOp = false;
+                        string[] traverseOptions = ["exit", "preorder", "inorder", "postorder", "level-order"];
+                        bool traversing = true;
+                        while (traversing)
                         {
-                            for (int traverseOptionIndex = 0; traverseOptionIndex < traverseOptions.Length; traverseOptionIndex++)
+                            bool choosingTraverseOption = true;
+                            int selectedTraverseOption = 0;
+                            while (choosingTraverseOption)
                             {
-                                Console.Write($"{traverseOptionIndex + 1}. ");
-                                if (traverseOptionIndex == selectedTraverseOption) Console.WriteLine($"\x1b[;32m{traverseOptions[traverseOptionIndex]}\x1b[0m");
-                                else Console.WriteLine(traverseOptions[traverseOptionIndex]);
+                                Console.WriteLine("╔════════════════╗");
+                                for (int traverseOptionIndex = 0;
+                                     traverseOptionIndex < traverseOptions.Length;
+                                     traverseOptionIndex++)
+                                {
+                                    Console.Write($"║ {traverseOptionIndex + 1}. ");
+                                    if (traverseOptionIndex == selectedTraverseOption)
+                                        Console.Write($"\x1b[;32m{traverseOptions[traverseOptionIndex]}\x1b[0m");
+                                    else Console.Write(traverseOptions[traverseOptionIndex]);
+                                    for (int i = 0; i < 16 - (4 + traverseOptions[traverseOptionIndex].Length); i++) Console.Write(" ");
+                                    Console.WriteLine("║");
+                                }
+                                Console.WriteLine("╚════════════════╝");
+
+                                ConsoleKey selectedTraverseOptionKey = Console.ReadKey().Key;
+                                Console.Clear();
+                                switch (selectedTraverseOptionKey)
+                                {
+                                    case ConsoleKey.Enter:
+                                        choosingTraverseOption = false;
+                                        break;
+                                    case ConsoleKey.DownArrow:
+                                        if (selectedTraverseOption == traverseOptions.Length - 1) continue;
+                                        selectedTraverseOption++;
+                                        break;
+                                    case ConsoleKey.UpArrow:
+                                        if (selectedTraverseOption == 0) continue;
+                                        selectedTraverseOption--;
+                                        break;
+                                }
                             }
-                            ConsoleKey selectedTraverseOptionKey = Console.ReadKey().Key;
-                            switch (selectedTraverseOptionKey)
+
+                            switch (selectedTraverseOption)
                             {
-                                case ConsoleKey.Enter:
-                                    choosingTraverseOption = false;
+                                case 0:
+                                    traversing = false;
                                     break;
-                                case ConsoleKey.DownArrow:
-                                    if (selectedTraverseOption == traverseOptions.Length - 1) continue;
-                                    selectedMainOption++;
+                                case 1:
+                                    bst.Preorder();
                                     break;
-                                case ConsoleKey.UpArrow:
-                                    if (selectedTraverseOption == 0) continue;
-                                    selectedMainOption--;
+                                case 2:
+                                    bst.Inorder();
+                                    break;
+                                case 3:
+                                    bst.Postorder();
+                                    break;
+                                case 4:
+                                    bst.Levelorder();
                                     break;
                             }
-                            Console.Clear();
                         }
+
                         break;
                 }
+
                 if (continueMainOptionOp == false)
                     continue;
                 bool inputContinueCorrectly = false;
@@ -114,6 +156,7 @@ class Program
                 }
             }
         }
+
         Console.WriteLine("Goodbye!");
     }
 }

@@ -51,7 +51,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public void Postorder()
     {
         if (root == null) return;
-        root.Postorder();
+        root.Postorder(0);
     }
 
     public void Levelorder()
