@@ -84,6 +84,7 @@ class Program
                             int selectedTraverseOption = 0;
                             while (choosingTraverseOption)
                             {
+                                Console.Clear();
                                 Console.WriteLine("╔════════════════╗");
                                 for (int traverseOptionIndex = 0;
                                      traverseOptionIndex < traverseOptions.Length;
@@ -99,7 +100,6 @@ class Program
                                 Console.WriteLine("╚════════════════╝");
 
                                 ConsoleKey selectedTraverseOptionKey = Console.ReadKey().Key;
-                                Console.Clear();
                                 switch (selectedTraverseOptionKey)
                                 {
                                     case ConsoleKey.Enter:
@@ -116,23 +116,45 @@ class Program
                                 }
                             }
 
-                            switch (selectedTraverseOption)
+                            bool continueTraverseOptionOp = true;
+                            while (continueTraverseOptionOp)
                             {
-                                case 0:
-                                    traversing = false;
-                                    break;
-                                case 1:
-                                    bst.Preorder();
-                                    break;
-                                case 2:
-                                    bst.Inorder();
-                                    break;
-                                case 3:
-                                    bst.Postorder();
-                                    break;
-                                case 4:
-                                    bst.Levelorder();
-                                    break;
+                                Console.Clear();
+                                switch (selectedTraverseOption)
+                                {
+                                    case 0:
+                                        traversing = false;
+                                        continueTraverseOptionOp = false;
+                                        break;
+                                    case 1:
+                                        bst.Preorder();
+                                        break;
+                                    case 2:
+                                        bst.Inorder();
+                                        break;
+                                    case 3:
+                                        bst.Postorder();
+                                        break;
+                                    case 4:
+                                        bst.Levelorder();
+                                        break;
+                                }
+
+                                if (continueTraverseOptionOp == false)
+                                    continue;
+                                bool inputTraverseContinueCorrectly = false;
+                                while (!inputTraverseContinueCorrectly)
+                                {
+                                    Console.Write("Do you want to continue? ");
+                                    ConsoleKey continueKey = Console.ReadKey().Key;
+                                    if (continueKey == ConsoleKey.Y)
+                                        inputTraverseContinueCorrectly = true;
+                                    else if (continueKey == ConsoleKey.N)
+                                    {
+                                        inputTraverseContinueCorrectly = true;
+                                        continueTraverseOptionOp = false;
+                                    }
+                                }
                             }
                         }
 
@@ -141,16 +163,16 @@ class Program
 
                 if (continueMainOptionOp == false)
                     continue;
-                bool inputContinueCorrectly = false;
-                while (!inputContinueCorrectly)
+                bool inputMainContinueCorrectly = false;
+                while (!inputMainContinueCorrectly)
                 {
                     Console.Write("Do you want to continue? ");
                     ConsoleKey continueKey = Console.ReadKey().Key;
                     if (continueKey == ConsoleKey.Y)
-                        inputContinueCorrectly = true;
+                        inputMainContinueCorrectly = true;
                     else if (continueKey == ConsoleKey.N)
                     {
-                        inputContinueCorrectly = true;
+                        inputMainContinueCorrectly = true;
                         continueMainOptionOp = false;
                     }
                 }
