@@ -7,17 +7,18 @@
     Title="bstBuilderAnalyzerGUI">
     <StackPanel>
         <Grid ColumnDefinitions="100, 100" RowDefinitions="Auto">
-            <TextBox Grid.Row="0" Grid.Column="0" Watermark="Input integer..."/>
-            <Button Grid.Row="0" Grid.Column="1">Submit</Button>
+            <TextBox Name="insertInput" Grid.Row="0" Grid.Column="0" Watermark="Input integer..."/>
+            <Button Grid.Row="0" Grid.Column="1" Click="insertInt">Submit</Button>
         </Grid>
-        <Grid ColumnDefinitions="100, 100" RowDefinitions="Auto">
-            <Button Grid.Row="0" Grid.Column="0">Traverse</Button>
-            <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="0">
+        <Grid ColumnDefinitions="100, 100, 100" RowDefinitions="Auto">
+            <Button Grid.Row="0" Grid.Column="0" Click="traverse">Traverse</Button>
+            <ComboBox Name="traversalType" Grid.Row="0" Grid.Column="1" SelectedIndex="0">
                 <ComboBoxItem>Preorder</ComboBoxItem>
                 <ComboBoxItem>Inorder</ComboBoxItem>
                 <ComboBoxItem>Postorder</ComboBoxItem>
                 <ComboBoxItem>Level-order</ComboBoxItem>
             </ComboBox>
+            <Button Grid.Row="0" Grid.Column="2" Click="showAnalytics">Analytics</Button>
         </Grid>
     </StackPanel>
 </Window>

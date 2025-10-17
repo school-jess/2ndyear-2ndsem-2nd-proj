@@ -6,7 +6,7 @@ class Program
     {
         BinarySearchTree<int> bst = new BinarySearchTree<int>();
         bool running = true;
-        string[] mainOptions = ["exit", "insert", "traverse"];
+        string[] mainOptions = ["exit", "insert", "traverse", "analytics"];
         int selectedMainOption = 0;
 
         while (running)
@@ -158,6 +158,24 @@ class Program
                             }
                         }
 
+                        break;
+                    case 3:
+                        if (bst.TotalNodes == 0) Console.WriteLine("The Binary Search Tree is empty!");
+                        else
+                        {
+                            Console.WriteLine($"Maximum: {bst.Biggest}");
+                            Console.WriteLine($"Minimum: {bst.Smallest}");
+                            Console.WriteLine($"Total Nodes: {bst.TotalNodes}");
+                            Console.WriteLine($"Tree Height: {bst.TreeHeight}");
+                            Console.Write($"Leaf Nodes: ");
+                            int leafNodeIndex = 0;
+                            foreach (var leafNode in bst.LeafNodes)
+                            {
+                                if (leafNodeIndex == bst.LeafNodes.Count - 1) Console.Write($"{leafNode.ToString()}");
+                                else Console.Write($"{leafNode.ToString()}, ");
+                                leafNodeIndex++;
+                            }
+                        }
                         break;
                 }
 
