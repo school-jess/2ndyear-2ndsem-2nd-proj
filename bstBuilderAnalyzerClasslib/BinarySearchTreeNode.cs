@@ -70,39 +70,45 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         if (Right != null) Right.Preorder("└──", stringBranchConnection);
     }
 
-    public void Inorder()
+    public bool Inorder(bool shouldCountinue)
     {
-        if (Left != null) Left.Inorder();
+        if (!shouldCountinue)
+        {
+            return false;
+        }
+        if (Left != null) Left.Inorder(shouldCountinue);
         Console.WriteLine(ToString());
-        if (Right != null) Right.Inorder();
+        Console.WriteLine(" »");
+        bool inputShouldContinueKey = false;
+        while (!inputShouldContinueKey)
+        {
+            ConsoleKey shouldContinueKey = Console.ReadKey().Key;
+            switch (shouldContinueKey)
+            {
+                case ConsoleKey.RightArrow:
+                    inputShouldContinueKey = false;
+                    break;
+                case ConsoleKey.N:
+                    return false;
+            }
+        }
+        if (Right != null) Right.Inorder(shouldCountinue);
+        return shouldCountinue;
     }
 
-    // public void Postorder(int subTreeHeight)
-    public void Postorder()
+    public void Postorder(string stringConnector, int treeHeight)
     {
-        // int leftSubTreeHeight = 0;
-        // int rightSubTreeHeight = 0;
-        // if (Left != null && Right != null)
-        // {
-        //     leftSubTreeHeight = getSubTreeHeight();
-        //     rightSubTreeHeight = getSubTreeHeight();
-        // }
-        // if (level > 1)
-        // {
-        //     leftSubTreeHeight = subTreeHeight;
-        //     rightSubTreeHeight = subTreeHeight;
-        // }
-        // if (Left != null) Left.Postorder(leftSubTreeHeight);
-        if (Left != null) Left.Postorder();
-        // if (Right != null) Right.Postorder(rightSubTreeHeight);
-        if (Right != null) Right.Postorder();
-        Console.WriteLine(ToString());
+        if (Left != null) Left.Postorder("┐", treeHeight);
+        if (Right != null) Right.Postorder("┴", treeHeight);
+        if (Left == null ^ Right == null)
+            for (int i = 0; i < treeHeight; i++)
+                Console.Write(" ");
+        Console.Write(ToString());
+        if (Left == null && Right == null)
+            if ((Left == null && Right == null) && level != treeHeight)
+                for (int i = 0; i < treeHeight; i++)
+                    Console.Write("─");
+        Console.Write(stringConnector);
+        if (stringConnector == "┐") Console.WriteLine();
     }
-
-    // int getSubTreeHeight()
-    // {
-    //     if (Left != null) Left.getSubTreeHeight();
-    //     if (Right != null) Right.getSubTreeHeight();
-    //     return 0;
-    // }
 }

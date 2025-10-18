@@ -72,13 +72,13 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public void Inorder()
     {
         if (root == null) return;
-        root.Inorder();
+        root.Inorder(true);
     }
 
     public void Postorder()
     {
         if (root == null) return;
-        root.Postorder();
+        root.Postorder("", TreeHeight);
     }
 
     public void Levelorder()
