@@ -42,8 +42,16 @@ public class BinarySearchTree<T> where T : IComparable<T>
             return;
         }
         elements.Add(data);
-        if (data.CompareTo(Biggest) > 0) Biggest = data;
-        if (data.CompareTo(Smallest) < 0) Smallest = data;
+        if (TotalNodes == 0)
+        {
+            Biggest = data;
+            Smallest = data;
+        }
+        else
+        {
+            if (data.CompareTo(Biggest) > 0) Biggest = data;
+            if (data.CompareTo(Smallest) < 0) Smallest = data;
+        }
         TotalNodes++;
         if (root == null)
         {

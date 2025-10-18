@@ -15,18 +15,18 @@ class Program
             while (choosingMainOption)
             {
                 Console.Clear();
-                Console.WriteLine("╔═════════════╗");
+                Console.WriteLine("╔══════════════╗");
                 for (int optionIndex = 0; optionIndex < mainOptions.Length; optionIndex++)
                 {
                     Console.Write($"║ {optionIndex + 1}. ");
                     if (optionIndex == selectedMainOption)
                         Console.Write($"\x1b[;32m{mainOptions[optionIndex]}\x1b[0m");
                     else Console.Write(mainOptions[optionIndex]);
-                    for (int i = 0; i < 13 - (4 + mainOptions[optionIndex].Length); i++) Console.Write(" ");
+                    for (int i = 0; i < 14 - (4 + mainOptions[optionIndex].Length); i++) Console.Write(" ");
                     Console.WriteLine("║");
                 }
 
-                Console.WriteLine("╚═════════════╝");
+                Console.WriteLine("╚══════════════╝");
 
                 ConsoleKey selectedMainOptionKey = Console.ReadKey().Key;
                 switch (selectedMainOptionKey)
@@ -175,6 +175,7 @@ class Program
                                 else Console.Write($"{leafNode.ToString()}, ");
                                 leafNodeIndex++;
                             }
+                            Console.WriteLine();
                         }
                         break;
                 }

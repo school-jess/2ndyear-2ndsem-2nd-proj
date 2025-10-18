@@ -1,30 +1,50 @@
 using Avalonia.Controls;
+using bstBuilderAnalyzerClasslib;
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace bstBuilderAnalyzerGUI;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Window, INotifyPropertyChanged
 {
+    private BinarySearchTree<int> bst;
+    private string _analyticsStr;
+    public string AnalyticsStr
+    {
+        get => _analyticsStr; set
+        {
+            _analyticsStr = value;
+            OnPropertyChanged();
+        }
+    }
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public MainWindow()
     {
         InitializeComponent();
+        bst = new BinarySearchTree<int>();
+        _analyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}";
+        DataContext = this;
     }
 
-    private async void insertInt(object? sender, Avalonia.Interactivity.RoutedEvent e)
+    private void insertInt_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         int inputtedInt = 0;
         try
         {
-            string _ = insertInput.Text.Trim();
+            string strInputtedInt = insertInput.Text.Trim();
+            inputtedInt = Convert.ToInt32(strInputtedInt);
         }
         catch
         {
-            await MessageBox.Show(this, "This is a diagnostic message!", "Error", MessageBox.MessageBoxButtons.OK, MessageBox.MessageBoxIcon.Error);
             return;
         }
         bst.Insert(inputtedInt);
+        AnalyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}";
     }
 
-    private async void traverse(object? sender, Avalonia.Interactivity.RoutedEvent e)
+    private void traverse_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         switch (traversalType.SelectedIndex)
         {
@@ -41,5 +61,10 @@ public partial class MainWindow : Window
                 bst.Levelorder();
                 break;
         }
+    }
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

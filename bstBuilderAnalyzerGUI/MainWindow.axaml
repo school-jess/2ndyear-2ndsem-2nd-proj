@@ -4,21 +4,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
     x:Class="bstBuilderAnalyzerGUI.MainWindow"
+    xmlns:local="clr-namespace:bstBuilderAnalyzerGUI" 
+    x:DataType="local:MainWindow"
     Title="bstBuilderAnalyzerGUI">
     <StackPanel>
         <Grid ColumnDefinitions="100, 100" RowDefinitions="Auto">
             <TextBox Name="insertInput" Grid.Row="0" Grid.Column="0" Watermark="Input integer..."/>
-            <Button Grid.Row="0" Grid.Column="1" Click="insertInt">Submit</Button>
+            <Button Grid.Row="0" Grid.Column="1" Click="insertInt_Click">Submit</Button>
         </Grid>
-        <Grid ColumnDefinitions="100, 100, 100" RowDefinitions="Auto">
-            <Button Grid.Row="0" Grid.Column="0" Click="traverse">Traverse</Button>
+        <Grid ColumnDefinitions="100, 100, 400" RowDefinitions="Auto">
+            <Button Grid.Row="0" Grid.Column="0" Click="traverse_Click">Traverse</Button>
             <ComboBox Name="traversalType" Grid.Row="0" Grid.Column="1" SelectedIndex="0">
                 <ComboBoxItem>Preorder</ComboBoxItem>
                 <ComboBoxItem>Inorder</ComboBoxItem>
                 <ComboBoxItem>Postorder</ComboBoxItem>
                 <ComboBoxItem>Level-order</ComboBoxItem>
             </ComboBox>
-            <Button Grid.Row="0" Grid.Column="2" Click="showAnalytics">Analytics</Button>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding AnalyticsStr}" />
         </Grid>
     </StackPanel>
 </Window>
