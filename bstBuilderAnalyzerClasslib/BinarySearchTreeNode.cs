@@ -45,7 +45,7 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         return $"{Data.ToString()}";
     }
 
-    public void Preorder(string stringConnector, List<int> stringBranchConnection)
+    public void PreorderConsole(string stringConnector, List<int> stringBranchConnection)
     {
         if (stringConnector == "└──") // this the only way to know if traversing Right
             stringBranchConnection.Remove(level);
@@ -66,13 +66,13 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
             if (!stringBranchConnection.Contains(stringBranchConnectionElemToAdd))
                 stringBranchConnection.Add(stringBranchConnectionElemToAdd);
         }
-        if (Left != null) Left.Preorder(leftStringConnector, stringBranchConnection);
-        if (Right != null) Right.Preorder("└──", stringBranchConnection);
+        if (Left != null) Left.PreorderConsole(leftStringConnector, stringBranchConnection);
+        if (Right != null) Right.PreorderConsole("└──", stringBranchConnection);
     }
 
-    public bool Inorder(bool shouldCountinue, T biggest)
+    public bool InorderConsole(bool shouldCountinue, T biggest)
     {
-        if (Left != null) Left.Inorder(shouldCountinue, biggest);
+        if (Left != null) Left.InorderConsole(shouldCountinue, biggest);
         if (!shouldCountinue) return false;
         Console.Clear();
         Console.Write(ToString());
@@ -94,14 +94,14 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
             }
         }
         else Console.WriteLine();
-        if (Right != null) Right.Inorder(shouldCountinue, biggest);
+        if (Right != null) Right.InorderConsole(shouldCountinue, biggest);
         return shouldCountinue;
     }
 
-    public void Postorder(string stringConnector, int treeHeight)
+    public void PostorderConsole(string stringConnector, int treeHeight)
     {
-        if (Left != null) Left.Postorder(" ┐", treeHeight);
-        if (Right != null) Right.Postorder("┴", treeHeight);
+        if (Left != null) Left.PostorderConsole(" ┐", treeHeight);
+        if (Right != null) Right.PostorderConsole("┴", treeHeight);
         if (Left == null ^ Right == null)
             for (int i = 0; i < treeHeight; i++)
                 Console.Write(" ");
@@ -112,5 +112,26 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
                     Console.Write("─");
         Console.Write(stringConnector);
         if (stringConnector == "┐") Console.WriteLine();
+    }
+
+    public void PreorderGUI()
+    {
+
+        if (Left != null) Left.PreorderGUI();
+        if (Right != null) Right.PreorderGUI();
+    }
+
+    public void InorderGUI()
+    {
+        if (Left != null) Left.InorderGUI();
+
+        if (Right != null) Right.InorderGUI();
+    }
+
+    public void PostorderGUI()
+    {
+        if (Left != null) Left.PostorderGUI();
+        if (Right != null) Right.PostorderGUI();
+
     }
 }

@@ -135,16 +135,16 @@ class Program
                                         continueTraverseOptionOp = false;
                                         break;
                                     case 1:
-                                        bst.Preorder();
+                                        bst.PreorderConsole();
                                         break;
                                     case 2:
-                                        bst.Inorder();
+                                        bst.InorderConsole();
                                         break;
                                     case 3:
-                                        bst.Postorder();
+                                        bst.PostorderConsole();
                                         break;
                                     case 4:
-                                        bst.Levelorder();
+                                        bst.LevelorderConsole();
                                         break;
                                 }
 

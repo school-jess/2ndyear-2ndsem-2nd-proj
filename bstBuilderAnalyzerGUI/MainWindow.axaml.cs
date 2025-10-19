@@ -24,7 +24,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         InitializeComponent();
         bst = new BinarySearchTree<int>();
-        _analyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}";
+        _analyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}, Leaf Nodes: ";
+        foreach (var leafNode in bst.LeafNodes) _analyticsStr += $"{leafNode}, ";
         DataContext = this;
     }
 
@@ -41,7 +42,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             return;
         }
         bst.Insert(inputtedInt);
+        bst.PreorderGUI(bstCanvas);
         AnalyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}";
+        foreach (var leafNode in bst.LeafNodes) AnalyticsStr += $"{leafNode}, ";
     }
 
     private void search_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -59,16 +62,16 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         switch (traversalType.SelectedIndex)
         {
             case 0:
-                bst.Preorder();
+                bst.PreorderGUI(bstCanvas);
                 break;
             case 1:
-                bst.Inorder();
+                bst.InorderGUI(bstCanvas);
                 break;
             case 2:
-                bst.Postorder();
+                bst.PostorderGUI(bstCanvas);
                 break;
             case 3:
-                bst.Levelorder();
+                bst.LevelorderGUI(bstCanvas);
                 break;
         }
     }

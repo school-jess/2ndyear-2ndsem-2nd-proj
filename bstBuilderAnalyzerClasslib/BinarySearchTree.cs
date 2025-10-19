@@ -67,25 +67,25 @@ public class BinarySearchTree<T> where T : IComparable<T>
             TreeHeight = curTreeHeight;
     }
 
-    public void Preorder()
+    public void PreorderConsole()
     {
         if (root == null) return;
-        root.Preorder("", new List<int>());
+        root.PreorderConsole("", new List<int>());
     }
 
-    public void Inorder()
+    public void InorderConsole()
     {
         if (root == null) return;
-        root.Inorder(true, Biggest);
+        root.InorderConsole(true, Biggest);
     }
 
-    public void Postorder()
+    public void PostorderConsole()
     {
         if (root == null) return;
-        root.Postorder("", TreeHeight);
+        root.PostorderConsole("", TreeHeight);
     }
 
-    public void Levelorder()
+    public void LevelorderConsole()
     {
         if (root == null) return;
         Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
@@ -94,6 +94,37 @@ public class BinarySearchTree<T> where T : IComparable<T>
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
             Console.WriteLine(curElem.ToString());
+            if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
+            if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
+        }
+    }
+
+    public void PreorderGUI()
+    {
+        if (root == null) return;
+        root.PreorderGUI();
+    }
+
+    public void InorderGUI()
+    {
+        if (root == null) return;
+        root.InorderGUI();
+    }
+
+    public void PostorderGUI()
+    {
+        if (root == null) return;
+        root.PostorderGUI();
+    }
+
+    public void LevelorderGUI()
+    {
+        if (root == null) return;
+        Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
+        bstNodes.Enqueue(root);
+        while (bstNodes.Count > 0)
+        {
+            BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
             if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
             if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
