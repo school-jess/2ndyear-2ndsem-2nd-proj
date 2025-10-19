@@ -8,22 +8,23 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public T? Biggest;
     public T? Smallest;
     private List<T> elements;
+
     public List<T> LeafNodes
     {
         get
         {
-
             if (root == null) return [];
             List<T> leafNodes = new List<T>();
-            Queue<BinarySearchTreeNode<T>> elements = new Queue<BinarySearchTreeNode<T>>();
-            elements.Enqueue(root);
-            while (elements.Count > 0)
+            Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
+            bstNodes.Enqueue(root);
+            while (bstNodes.Count > 0)
             {
-                BinarySearchTreeNode<T> curElem = elements.Dequeue();
+                BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
                 if (curElem.Left == null && curElem.Right == null) leafNodes.Add(curElem.Data);
-                if (curElem.Left != null) elements.Enqueue(curElem.Left);
-                if (curElem.Right != null) elements.Enqueue(curElem.Right);
+                if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
+                if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
             }
+
             return leafNodes;
         }
     }
@@ -41,6 +42,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
         {
             return;
         }
+
         elements.Add(data);
         if (TotalNodes == 0)
         {
@@ -52,12 +54,14 @@ public class BinarySearchTree<T> where T : IComparable<T>
             if (data.CompareTo(Biggest) > 0) Biggest = data;
             if (data.CompareTo(Smallest) < 0) Smallest = data;
         }
+
         TotalNodes++;
         if (root == null)
         {
             root = new BinarySearchTreeNode<T>(data, 0);
             return;
         }
+
         int curTreeHeight = root.Insert(data);
         if (TreeHeight < curTreeHeight)
             TreeHeight = curTreeHeight;
@@ -72,7 +76,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public void Inorder()
     {
         if (root == null) return;
-        root.Inorder(true);
+        root.Inorder(true, Biggest);
     }
 
     public void Postorder()
@@ -84,14 +88,14 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public void Levelorder()
     {
         if (root == null) return;
-        Queue<BinarySearchTreeNode<T>> elements = new Queue<BinarySearchTreeNode<T>>();
-        elements.Enqueue(root);
-        while (elements.Count > 0)
+        Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
+        bstNodes.Enqueue(root);
+        while (bstNodes.Count > 0)
         {
-            BinarySearchTreeNode<T> curElem = elements.Dequeue();
+            BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
             Console.WriteLine(curElem.ToString());
-            if (curElem.Left != null) elements.Enqueue(curElem.Left);
-            if (curElem.Right != null) elements.Enqueue(curElem.Right);
+            if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
+            if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
     }
 }

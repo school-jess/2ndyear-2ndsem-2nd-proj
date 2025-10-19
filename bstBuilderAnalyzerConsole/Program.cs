@@ -60,7 +60,12 @@ class Program
                         bool hasInputtedInt = false;
                         while (!hasInputtedInt)
                         {
-                            Console.Write("Integer to insert: ");
+                            Console.WriteLine("╔═════════════════════════════╗");
+                            Console.WriteLine("║                             ║");
+                            Console.WriteLine("║ Integer to insert:          ║");
+                            Console.WriteLine("║                             ║");
+                            Console.WriteLine("╚═════════════════════════════╝");
+                            Console.Write("\x1b[3;22f");
                             string strInt = Console.ReadLine() ?? "";
                             try
                             {
@@ -94,9 +99,11 @@ class Program
                                     if (traverseOptionIndex == selectedTraverseOption)
                                         Console.Write($"\x1b[;32m{traverseOptions[traverseOptionIndex]}\x1b[0m");
                                     else Console.Write(traverseOptions[traverseOptionIndex]);
-                                    for (int i = 0; i < 16 - (4 + traverseOptions[traverseOptionIndex].Length); i++) Console.Write(" ");
+                                    for (int i = 0; i < 16 - (4 + traverseOptions[traverseOptionIndex].Length); i++)
+                                        Console.Write(" ");
                                     Console.WriteLine("║");
                                 }
+
                                 Console.WriteLine("╚════════════════╝");
 
                                 ConsoleKey selectedTraverseOptionKey = Console.ReadKey().Key;
@@ -175,8 +182,10 @@ class Program
                                 else Console.Write($"{leafNode.ToString()}, ");
                                 leafNodeIndex++;
                             }
+
                             Console.WriteLine();
                         }
+
                         break;
                 }
 
