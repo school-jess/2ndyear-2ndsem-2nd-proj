@@ -44,8 +44,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         AnalyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}";
     }
 
-    private void traverse_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void search_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        int inputtedInt = 0;
+        try
+        {
+            string strInputtedInt = searchInput.Text.Trim();
+            inputtedInt = Convert.ToInt32(strInputtedInt);
+        }
+        catch
+        {
+            return;
+        }
         switch (traversalType.SelectedIndex)
         {
             case 0:

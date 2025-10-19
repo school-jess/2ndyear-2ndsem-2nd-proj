@@ -67,6 +67,7 @@ class Program
                             Console.WriteLine("╚═════════════════════════════╝");
                             Console.Write("\x1b[3;22f");
                             string strInt = Console.ReadLine() ?? "";
+                            Console.Write("\x1b[6;1f");
                             try
                             {
                                 inputtedInt = Convert.ToInt32(strInt);

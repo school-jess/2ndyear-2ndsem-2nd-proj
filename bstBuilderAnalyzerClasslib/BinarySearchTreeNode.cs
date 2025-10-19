@@ -74,22 +74,26 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
     {
         if (Left != null) Left.Inorder(shouldCountinue, biggest);
         if (!shouldCountinue) return false;
+        Console.Clear();
         Console.Write(ToString());
-        if (Data.CompareTo(biggest) == 0) {}
-        Console.WriteLine(" »");
-        bool inputShouldContinueKey = false;
-        while (!inputShouldContinueKey)
+        if (Data.CompareTo(biggest) < 0)
         {
-            ConsoleKey shouldContinueKey = Console.ReadKey().Key;
-            switch (shouldContinueKey)
+            Console.WriteLine(" »");
+            bool inputShouldContinueKey = false;
+            while (!inputShouldContinueKey)
             {
-                case ConsoleKey.RightArrow:
-                    inputShouldContinueKey = false;
-                    break;
-                case ConsoleKey.N:
-                    return false;
+                ConsoleKey shouldContinueKey = Console.ReadKey().Key;
+                switch (shouldContinueKey)
+                {
+                    case ConsoleKey.RightArrow:
+                        inputShouldContinueKey = true;
+                        break;
+                    case ConsoleKey.N:
+                        return false;
+                }
             }
         }
+        else Console.WriteLine();
         if (Right != null) Right.Inorder(shouldCountinue, biggest);
         return shouldCountinue;
     }
