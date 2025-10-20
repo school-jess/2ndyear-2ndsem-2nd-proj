@@ -145,7 +145,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
 
     }
 
-    public void DisplayGUITree(Canvas canvas)
+    public void DisplayGUITree(Canvas canvas, bool isRight)
     {
         Ellipse shapeContainer = new Ellipse
         {
@@ -153,16 +153,16 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
             Height = 20.0,
             Width = 20.0
         };
-        Canvas.SetLeft(shapeContainer, 100.0);
-        Canvas.SetTop(shapeContainer, 100.0);
+        Canvas.SetLeft(shapeContainer, 10.0);
+        Canvas.SetTop(shapeContainer, 10.0 * level);
         canvas.Children.Add(shapeContainer);
 
         TextBlock containerText = new TextBlock { Text = Data.ToString() };
-        Canvas.SetLeft(containerText, 105.0);
-        Canvas.SetTop(containerText, 105.0);
+        Canvas.SetLeft(containerText, 15.0);
+        Canvas.SetTop(containerText, 15.0 * level);
         canvas.Children.Add(containerText);
 
-        if (Left != null) Left.DisplayGUITree(canvas);
-        if (Right != null) Right.DisplayGUITree(canvas);
+        if (Left != null) Left.DisplayGUITree(canvas, false);
+        if (Right != null) Right.DisplayGUITree(canvas, true);
     }
 }
