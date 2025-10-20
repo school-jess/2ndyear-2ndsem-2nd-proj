@@ -121,8 +121,8 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
     public void PreorderGUI(Canvas canvas, T dataToSearch)
     {
         if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
-        if (Left != null) return Left.PreorderGUI(canvas, dataToSearch);
-        if (Right != null) return Right.PreorderGUI(canvas, dataToSearch);
+        if (Left != null) Left.PreorderGUI(canvas, dataToSearch);
+        if (Right != null) Right.PreorderGUI(canvas, dataToSearch);
     }
 
     public void InorderGUI(Canvas canvas, T dataToSearch)
