@@ -1,4 +1,8 @@
-﻿namespace bstBuilderAnalyzerClasslib;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
+using Avalonia.Media;
+
+namespace bstBuilderAnalyzerClasslib;
 
 public class BinarySearchTreeNode<T> where T : IComparable<T>
 {
@@ -114,24 +118,46 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         if (stringConnector == "┐") Console.WriteLine();
     }
 
-    public void PreorderGUI()
+    public void PreorderGUI(Canvas canvas, T dataToSearch)
     {
-
-        if (Left != null) Left.PreorderGUI();
-        if (Right != null) Right.PreorderGUI();
+        if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+        if (Left != null) return Left.PreorderGUI(canvas, dataToSearch);
+        if (Right != null) return Right.PreorderGUI(canvas, dataToSearch);
     }
 
-    public void InorderGUI()
+    public void InorderGUI(Canvas canvas, T dataToSearch)
     {
-        if (Left != null) Left.InorderGUI();
-
-        if (Right != null) Right.InorderGUI();
+        if (Left != null) Left.InorderGUI(canvas, dataToSearch);
+        if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+        if (Right != null) Right.InorderGUI(canvas, dataToSearch);
     }
 
-    public void PostorderGUI()
+    public void PostorderGUI(Canvas canvas, T dataToSearch)
     {
-        if (Left != null) Left.PostorderGUI();
-        if (Right != null) Right.PostorderGUI();
+        if (Left != null) Left.PostorderGUI(canvas, dataToSearch);
+        if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+        if (Right != null) Right.PostorderGUI(canvas, dataToSearch);
 
+    }
+
+    public void DisplayGUITree(Canvas canvas)
+    {
+        Ellipse shapeContainer = new Ellipse
+        {
+            Fill = Brushes.Coral,
+            Height = 100.0,
+            Width = 100.0
+        };
+        Canvas.SetLeft(shapeContainer, 100.0);
+        Canvas.SetTop(shapeContainer, 100.0);
+        canvas.Children.Add(shapeContainer);
+
+        TextBlock containerText = new TextBlock { Text = Data.ToString() };
+        Canvas.SetLeft(containerText, 150.0);
+        Canvas.SetTop(containerText, 150.0);
+        canvas.Children.Add(containerText);
+
+        if (Left != null) Left.DisplayGUITree(canvas);
+        if (Right != null) Right.DisplayGUITree(canvas);
     }
 }

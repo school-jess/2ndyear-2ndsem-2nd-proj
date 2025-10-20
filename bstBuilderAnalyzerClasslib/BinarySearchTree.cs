@@ -1,4 +1,6 @@
-﻿namespace bstBuilderAnalyzerClasslib;
+﻿using Avalonia.Controls;
+
+namespace bstBuilderAnalyzerClasslib;
 
 public class BinarySearchTree<T> where T : IComparable<T>
 {
@@ -99,25 +101,25 @@ public class BinarySearchTree<T> where T : IComparable<T>
         }
     }
 
-    public void PreorderGUI()
+    public void PreorderGUI(Canvas canvas, T dataToSearch)
     {
         if (root == null) return;
-        root.PreorderGUI();
+        root.PreorderGUI(canvas, dataToSearch);
     }
 
-    public void InorderGUI()
+    public void InorderGUI(Canvas canvas, T dataToSearch)
     {
         if (root == null) return;
-        root.InorderGUI();
+        root.InorderGUI(canvas, dataToSearch);
     }
 
-    public void PostorderGUI()
+    public void PostorderGUI(Canvas canvas, T dataToSearch)
     {
         if (root == null) return;
-        root.PostorderGUI();
+        root.PostorderGUI(canvas, dataToSearch);
     }
 
-    public void LevelorderGUI()
+    public void LevelorderGUI(Canvas canvas, T dataToSearch)
     {
         if (root == null) return;
         Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
@@ -125,8 +127,15 @@ public class BinarySearchTree<T> where T : IComparable<T>
         while (bstNodes.Count > 0)
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
+            if (curElem.Data.CompareTo(dataToSearch) > 0) {/*todo*/}
             if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
             if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
+    }
+
+    public void DisplayGUITree(Canvas canvas)
+    {
+        if (root == null) return;
+        root.DisplayGUITree(canvas);
     }
 }

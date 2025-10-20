@@ -42,7 +42,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             return;
         }
         bst.Insert(inputtedInt);
-        bst.PreorderGUI(bstCanvas);
+        bst.DisplayGUITree(bstCanvas);
         AnalyticsStr = $"Maximum: {bst.Biggest}, Minimum: {bst.Smallest}, Total Nodes: {bst.TotalNodes}, Tree Height: {bst.TreeHeight}";
         foreach (var leafNode in bst.LeafNodes) AnalyticsStr += $"{leafNode}, ";
     }
@@ -62,16 +62,16 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         switch (traversalType.SelectedIndex)
         {
             case 0:
-                bst.PreorderGUI(bstCanvas);
+                bst.PreorderGUI(bstCanvas, inputtedInt);
                 break;
             case 1:
-                bst.InorderGUI(bstCanvas);
+                bst.InorderGUI(bstCanvas, inputtedInt);
                 break;
             case 2:
-                bst.PostorderGUI(bstCanvas);
+                bst.PostorderGUI(bstCanvas, inputtedInt);
                 break;
             case 3:
-                bst.LevelorderGUI(bstCanvas);
+                bst.LevelorderGUI(bstCanvas, inputtedInt);
                 break;
         }
     }
