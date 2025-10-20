@@ -1,10 +1,11 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using System.Numerics;
 
 namespace bstBuilderAnalyzerClasslib;
 
-public class BinarySearchTreeNode<T> where T : IComparable<T>
+public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
 {
     public BinarySearchTreeNode<T>? Left;
     public BinarySearchTreeNode<T>? Right;
@@ -17,12 +18,10 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         level = treeNodeHeight;
     }
 
-    public bool IsGreaterThan(T other) => Data.CompareTo(other) < 0;
-
     public int Insert(T insertedData)
     {
         int newLevel = level + 1;
-        if (IsGreaterThan(insertedData))
+        if (Data < insertedData)
         {
             if (Right == null)
             {
@@ -80,7 +79,7 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         if (!shouldCountinue) return false;
         Console.Clear();
         Console.Write(ToString());
-        if (Data.CompareTo(biggest) < 0)
+        if (Data < biggest)
         {
             Console.WriteLine(" »");
             bool inputShouldContinueKey = false;
@@ -102,10 +101,11 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         return shouldCountinue;
     }
 
-    public void PostorderConsole(string stringConnector, int treeHeight)
+    public void PostorderConsole(string stringConnector, int treeHeight, bool hasSibling, int amtOfSpaces)
     {
-        if (Left != null) Left.PostorderConsole(" ┐", treeHeight);
-        if (Right != null) Right.PostorderConsole("┴", treeHeight);
+        bool hasToConnect = stringConnector == "┴" && (Right != null || Left != null);
+        if (Left != null) Left.PostorderConsole("┐", treeHeight, hasToConnect, amtOfSpaces);
+        if (Right != null) Right.PostorderConsole("┴", treeHeight, false, amtOfSpaces);
         if (Left == null ^ Right == null)
             for (int i = 0; i < treeHeight; i++)
                 Console.Write(" ");
@@ -115,12 +115,17 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
                 for (int i = 0; i < treeHeight; i++)
                     Console.Write("─");
         Console.Write(stringConnector);
+        if (hasSibling)
+        {
+            for (int i = 0; i < amtOfSpaces; i++) Console.Write(" ");
+            Console.Write("│");
+        }
         if (stringConnector == "┐") Console.WriteLine();
     }
 
     public void PreorderGUI(Canvas canvas, T dataToSearch)
     {
-        if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+        if (Data > dataToSearch) {/*todo*/}
         if (Left != null) Left.PreorderGUI(canvas, dataToSearch);
         if (Right != null) Right.PreorderGUI(canvas, dataToSearch);
     }
@@ -128,14 +133,14 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
     public void InorderGUI(Canvas canvas, T dataToSearch)
     {
         if (Left != null) Left.InorderGUI(canvas, dataToSearch);
-        if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+        if (Data > dataToSearch) {/*todo*/}
         if (Right != null) Right.InorderGUI(canvas, dataToSearch);
     }
 
     public void PostorderGUI(Canvas canvas, T dataToSearch)
     {
         if (Left != null) Left.PostorderGUI(canvas, dataToSearch);
-        if (Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+        if (Data > dataToSearch) {/*todo*/}
         if (Right != null) Right.PostorderGUI(canvas, dataToSearch);
 
     }
@@ -145,16 +150,16 @@ public class BinarySearchTreeNode<T> where T : IComparable<T>
         Ellipse shapeContainer = new Ellipse
         {
             Fill = Brushes.Coral,
-            Height = 100.0,
-            Width = 100.0
+            Height = 20.0,
+            Width = 20.0
         };
         Canvas.SetLeft(shapeContainer, 100.0);
         Canvas.SetTop(shapeContainer, 100.0);
         canvas.Children.Add(shapeContainer);
 
         TextBlock containerText = new TextBlock { Text = Data.ToString() };
-        Canvas.SetLeft(containerText, 150.0);
-        Canvas.SetTop(containerText, 150.0);
+        Canvas.SetLeft(containerText, 105.0);
+        Canvas.SetTop(containerText, 105.0);
         canvas.Children.Add(containerText);
 
         if (Left != null) Left.DisplayGUITree(canvas);

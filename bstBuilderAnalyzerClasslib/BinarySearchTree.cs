@@ -1,8 +1,9 @@
 ﻿using Avalonia.Controls;
+using System.Numerics;
 
 namespace bstBuilderAnalyzerClasslib;
 
-public class BinarySearchTree<T> where T : IComparable<T>
+public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
 {
     private BinarySearchTreeNode<T>? root;
     public int TotalNodes = 0;
@@ -40,10 +41,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
 
     public void Insert(T data)
     {
-        if (elements.Contains(data))
-        {
-            return;
-        }
+        if (elements.Contains(data)) return;
 
         elements.Add(data);
         if (TotalNodes == 0)
@@ -53,8 +51,8 @@ public class BinarySearchTree<T> where T : IComparable<T>
         }
         else
         {
-            if (data.CompareTo(Biggest) > 0) Biggest = data;
-            if (data.CompareTo(Smallest) < 0) Smallest = data;
+            if (data > Biggest) Biggest = data;
+            if (data < Smallest) Smallest = data;
         }
 
         TotalNodes++;
@@ -84,7 +82,14 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public void PostorderConsole()
     {
         if (root == null) return;
-        root.PostorderConsole("", TreeHeight);
+        int lenLessThanRoot = 0;
+        foreach (var leafNode in LeafNodes)
+            if (leafNode > root.Data)
+            {
+                lenLessThanRoot = LeafNodes.IndexOf(leafNode);
+                break;
+            }
+        root.PostorderConsole("", TreeHeight, false, lenLessThanRoot);
     }
 
     public void LevelorderConsole()
@@ -127,7 +132,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
         while (bstNodes.Count > 0)
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
-            if (curElem.Data.CompareTo(dataToSearch) > 0) {/*todo*/}
+            if (curElem.Data > dataToSearch) {/*todo*/}
             if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
             if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
