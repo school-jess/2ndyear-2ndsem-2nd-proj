@@ -60,6 +60,7 @@ class Program
                         bool hasInputtedInt = false;
                         while (!hasInputtedInt)
                         {
+                            Console.Clear();
                             Console.WriteLine("╔═════════════════════════════╗");
                             Console.WriteLine("║                             ║");
                             Console.WriteLine("║ Integer to insert:          ║");

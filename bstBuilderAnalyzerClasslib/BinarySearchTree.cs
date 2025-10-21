@@ -96,14 +96,50 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
     {
         if (root == null) return;
         Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
+        Queue<string> bstNodeConnectors = new Queue<string>();
+        int[] noSiblings = new int[TreeHeight];
+        int curLevel = 0;
+        int curChild = 0;
         bstNodes.Enqueue(root);
+        bstNodeConnectors.Enqueue("");
         while (bstNodes.Count > 0)
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
-            Console.WriteLine(curElem.ToString());
-            if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
-            if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
+            string curConnector = bstNodeConnectors.Dequeue();
+            if (curLevel != curElem.Level)
+            {
+                curLevel = curElem.Level;
+                curChild = 0;
+            }
+            if (curChild <= 1)
+                for (int i = 0; i < curLevel; i++)
+                    Console.Write("  ");
+            Console.Write(curConnector);
+            Console.Write(curElem.ToString());
+            if (curElem.Level != 0 && (curElem.Left != null || curElem.Right != null))
+                for (int i = 0; i < noSiblings[curLevel - 1] - curChild - 1; i++)
+                    Console.Write("─");
+            if (curElem.Right != null || curElem.Left != null)
+                Console.Write("┐");
+            if (curChild == 0 || (curElem.Left == null || curElem.Right == null))
+                Console.WriteLine();
+            string leftConnectorStr = "├";
+            if (curElem.Right == null) leftConnectorStr = "└";
+            if (curElem.Left != null)
+            {
+                bstNodes.Enqueue(curElem.Left);
+                bstNodeConnectors.Enqueue(leftConnectorStr);
+                noSiblings[curElem.Level]++;
+            }
+            if (curElem.Right != null)
+            {
+                bstNodes.Enqueue(curElem.Right);
+                bstNodeConnectors.Enqueue("└");
+                noSiblings[curElem.Level]++;
+            }
+            curChild++;
         }
+        Console.WriteLine();
     }
 
     public void PreorderGUI(Canvas canvas, T dataToSearch)

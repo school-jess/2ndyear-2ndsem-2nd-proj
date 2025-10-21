@@ -10,17 +10,17 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
     public BinarySearchTreeNode<T>? Left;
     public BinarySearchTreeNode<T>? Right;
     public T Data;
-    private int level;
+    public int Level;
 
     public BinarySearchTreeNode(T nodeData, int treeNodeHeight)
     {
         Data = nodeData;
-        level = treeNodeHeight;
+        Level = treeNodeHeight;
     }
 
     public int Insert(T insertedData)
     {
-        int newLevel = level + 1;
+        int newLevel = Level + 1;
         if (Data < insertedData)
         {
             if (Right == null)
@@ -51,8 +51,8 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
     public void PreorderConsole(string stringConnector, List<int> stringBranchConnection)
     {
         if (stringConnector == "└──") // this the only way to know if traversing Right
-            stringBranchConnection.Remove(level);
-        for (int i = 1; i < level; i++)
+            stringBranchConnection.Remove(Level);
+        for (int i = 1; i < Level; i++)
         {
             if (stringBranchConnection.Contains(i))
                 Console.Write("│  ");
@@ -65,7 +65,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
         if (Right != null)
         {
             leftStringConnector = "├──";
-            int stringBranchConnectionElemToAdd = level + 1;
+            int stringBranchConnectionElemToAdd = Level + 1;
             if (!stringBranchConnection.Contains(stringBranchConnectionElemToAdd))
                 stringBranchConnection.Add(stringBranchConnectionElemToAdd);
         }
@@ -111,7 +111,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
                 Console.Write(" ");
         Console.Write(ToString());
         if (Left == null && Right == null)
-            if ((Left == null && Right == null) && level != treeHeight)
+            if ((Left == null && Right == null) && Level != treeHeight)
                 for (int i = 0; i < treeHeight; i++)
                     Console.Write("─");
         Console.Write(stringConnector);
@@ -145,7 +145,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
 
     }
 
-    public void DisplayGUITree(Canvas canvas, bool isRight)
+    public void DisplayGUITree(Canvas canvas)
     {
         Ellipse shapeContainer = new Ellipse
         {
@@ -154,15 +154,15 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
             Width = 20.0
         };
         Canvas.SetLeft(shapeContainer, 10.0);
-        Canvas.SetTop(shapeContainer, 10.0 * level);
+        Canvas.SetTop(shapeContainer, 10.0 * Level);
         canvas.Children.Add(shapeContainer);
 
         TextBlock containerText = new TextBlock { Text = Data.ToString() };
         Canvas.SetLeft(containerText, 15.0);
-        Canvas.SetTop(containerText, 15.0 * level);
+        Canvas.SetTop(containerText, 15.0 * Level);
         canvas.Children.Add(containerText);
 
-        if (Left != null) Left.DisplayGUITree(canvas, false);
-        if (Right != null) Right.DisplayGUITree(canvas, true);
+        if (Left != null) Left.DisplayGUITree(canvas);
+        if (Right != null) Right.DisplayGUITree(canvas);
     }
 }

@@ -39,11 +39,11 @@ public class UnitTest1
         bst.Insert(50);
         bst.Insert(25);
         bst.Insert(14);
-        // bst.Insert(36);
-        // bst.Insert(40);
+        bst.Insert(36);
+        bst.Insert(40);
         bst.Insert(75);
         bst.Insert(60);
-        // bst.Insert(84);
+        bst.Insert(84);
         // bst.Insert(79);
         // bst.Insert(78);
         // bst.Insert(80);
@@ -51,7 +51,10 @@ public class UnitTest1
         bst.LevelorderConsole();
         var output = stringWriter.ToString().Trim();
         Assert.Contains(@"50┐
-  ├25
-  └75", output);
+  ├25─┐
+  └75┐├14
+     │└36
+     ├─60
+     └─84", output);
     }
 }
