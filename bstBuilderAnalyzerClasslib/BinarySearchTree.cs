@@ -90,7 +90,7 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
                 break;
             }
 
-        root.PostorderConsole("", TreeHeight, false, lenLessThanRoot);
+        root.PostorderConsole("", TreeHeight, false, lenLessThanRoot, false);
     }
 
     public void LevelorderConsole()

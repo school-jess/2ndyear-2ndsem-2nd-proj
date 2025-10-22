@@ -104,12 +104,16 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
         return shouldCountinue;
     }
 
-    public void PostorderConsole(string stringConnector, int treeHeight, bool hasSibling, int amtOfSpaces)
+    public void PostorderConsole(string stringConnector, int treeHeight, bool hasSibling, int amtOfSpaces, bool isAlone)
     {
         bool hasToConnect = stringConnector == "┴" && (Right != null || Left != null);
-        if (Left != null) Left.PostorderConsole("┐", treeHeight, hasToConnect, amtOfSpaces);
-        if (Right != null) Right.PostorderConsole("┴", treeHeight, false, amtOfSpaces);
-        if (Left == null ^ Right == null)
+        string leftChildStrConnector = "┐";
+        string rightChildStrConnector = "┴";
+        if (Left == null) rightChildStrConnector = "─";
+        if (Right == null) leftChildStrConnector = "─";
+        if (Left != null) Left.PostorderConsole(leftChildStrConnector, treeHeight, hasToConnect, amtOfSpaces);
+        if (Right != null) Right.PostorderConsole(rightChildStrConnector, treeHeight, false, amtOfSpaces);
+        if ((Left == null ^ Right == null) && isAlone)
             for (int i = 0; i < treeHeight; i++)
                 Console.Write(" ");
         Console.Write(ToString());
@@ -118,7 +122,6 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
                 for (int i = 0; i < treeHeight; i++)
                     Console.Write("─");
         Console.Write(stringConnector);
-
         if (hasSibling)
         {
             for (int i = 0; i < amtOfSpaces; i++) Console.Write(" ");
