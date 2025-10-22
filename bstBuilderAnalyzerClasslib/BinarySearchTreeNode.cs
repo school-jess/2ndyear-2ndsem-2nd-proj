@@ -58,23 +58,44 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
 
     public List<T> Inorder(List<T> elements)
     {
-        if (Left != null) Left.Inorder(elements);
+        Left?.Inorder(elements);
         elements.Add(Data);
-        if (Right != null) Right.Inorder(elements);
+        Right?.Inorder(elements);
         return elements;
     }
 
     public List<T> Postorder(List<T> elements)
     {
-        if (Left != null) Left.Postorder(elements);
-        if (Right != null) Right.Postorder(elements);
+        Left?.Postorder(elements);
+        Right?.Postorder(elements);
         elements.Add(Data);
         return elements;
     }
 
-    public void DisplayTreeConsole()
+    public void DisplayTreeConsole(string stringConnector, List<int> stringBranchConnection)
     {
+        if (stringConnector == "└──") // this the only way to know if traversing Right
+            stringBranchConnection.Remove(Level);
+        for (int i = 1; i < Level; i++)
+        {
+            if (stringBranchConnection.Contains(i))
+                Console.Write("│  ");
+            else
+                Console.Write("   ");
+        }
 
+        Console.Write(stringConnector);
+        Console.WriteLine(ToString());
+        string leftStringConnector = "└──";
+        if (Right != null)
+        {
+            leftStringConnector = "├──";
+            int stringBranchConnectionElemToAdd = Level + 1;
+            if (!stringBranchConnection.Contains(stringBranchConnectionElemToAdd))
+                stringBranchConnection.Add(stringBranchConnectionElemToAdd);
+        }
+        Left?.DisplayTreeConsole(leftStringConnector, stringBranchConnection);
+        Right?.DisplayTreeConsole("└──", stringBranchConnection);
     }
 
     public void DisplayGUITree(Canvas canvas)
