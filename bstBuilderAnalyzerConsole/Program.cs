@@ -15,18 +15,18 @@ class Program
             while (choosingMainOption)
             {
                 Console.Clear();
-                Console.WriteLine("╔══════════════╗");
+                Console.WriteLine("╔═════════════════╗");
                 for (int optionIndex = 0; optionIndex < mainOptions.Length; optionIndex++)
                 {
                     Console.Write($"║ {optionIndex + 1}. ");
                     if (optionIndex == selectedMainOption)
                         Console.Write($"\x1b[;32m{mainOptions[optionIndex]}\x1b[0m");
                     else Console.Write(mainOptions[optionIndex]);
-                    for (int i = 0; i < 14 - (4 + mainOptions[optionIndex].Length); i++) Console.Write(" ");
+                    for (int i = 0; i < 17 - (4 + mainOptions[optionIndex].Length); i++) Console.Write(" ");
                     Console.WriteLine("║");
                 }
 
-                Console.WriteLine("╚══════════════╝");
+                Console.WriteLine("╚═════════════════╝");
 
                 ConsoleKey selectedMainOptionKey = Console.ReadKey().Key;
                 switch (selectedMainOptionKey)
@@ -88,18 +88,20 @@ class Program
                         List<int> levelorderedElems = bst.Levelorder();
                         Console.WriteLine("Preorder: ");
                         foreach (var preorderedElem in preorderedElems)
-                        {
                             Console.Write($"{preorderedElem} ");
-                        }
-                        Console.WriteLine("Inorder: ");
+                        Console.WriteLine();
+                        Console.Write("Inorder: ");
                         foreach (var inorderedElem in inorderedElems)
                             Console.Write($"{inorderedElem} ");
-                        Console.WriteLine("Postorder: ");
+                        Console.WriteLine();
+                        Console.Write("Postorder: ");
                         foreach (var postorderedElem in postorderedElems)
                             Console.Write($"{postorderedElem} ");
-                        Console.WriteLine("Level-order: ");
+                        Console.WriteLine();
+                        Console.Write("Level-order: ");
                         foreach (var levelorderedElem in levelorderedElems)
                             Console.Write($"{levelorderedElem} ");
+                        Console.WriteLine();
                         break;
                     case 3:
                         if (bst.TotalNodes == 0) Console.WriteLine("The Binary Search Tree is empty!");

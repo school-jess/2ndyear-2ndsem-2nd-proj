@@ -110,7 +110,7 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
     public void DisplayTreeConsole()
     {
         if (root == null) return;
-        root.DisplayTreeConsole("", []);
+        root.DisplayTreeConsole(TreeHeight);
     }
 
     public void DisplayGUITree(Canvas canvas)
