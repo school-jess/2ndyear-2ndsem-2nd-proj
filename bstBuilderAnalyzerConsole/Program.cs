@@ -6,7 +6,7 @@ class Program
     {
         BinarySearchTree<int> bst = new BinarySearchTree<int>();
         bool running = true;
-        string[] mainOptions = ["exit", "insert", "traverse", "analytics"];
+        string[] mainOptions = ["exit", "insert", "traverse", "analytics", "display tree"];
         int selectedMainOption = 0;
 
         while (running)
@@ -82,91 +82,24 @@ class Program
                         bst.Insert(inputtedInt);
                         break;
                     case 2:
-                        continueMainOptionOp = false;
-                        string[] traverseOptions = ["exit", "preorder", "inorder", "postorder", "level-order"];
-                        int selectedTraverseOption = 0;
-                        bool traversing = true;
-                        while (traversing)
+                        List<int> preorderedElems = bst.Preorder();
+                        List<int> inorderedElems = bst.Inorder();
+                        List<int> postorderedElems = bst.Postorder();
+                        List<int> levelorderedElems = bst.Levelorder();
+                        Console.WriteLine("Preorder: ");
+                        foreach (var preorderedElem in preorderedElems)
                         {
-                            bool choosingTraverseOption = true;
-                            while (choosingTraverseOption)
-                            {
-                                Console.Clear();
-                                Console.WriteLine("╔════════════════╗");
-                                for (int traverseOptionIndex = 0;
-                                     traverseOptionIndex < traverseOptions.Length;
-                                     traverseOptionIndex++)
-                                {
-                                    Console.Write($"║ {traverseOptionIndex + 1}. ");
-                                    if (traverseOptionIndex == selectedTraverseOption)
-                                        Console.Write($"\x1b[;32m{traverseOptions[traverseOptionIndex]}\x1b[0m");
-                                    else Console.Write(traverseOptions[traverseOptionIndex]);
-                                    for (int i = 0; i < 16 - (4 + traverseOptions[traverseOptionIndex].Length); i++)
-                                        Console.Write(" ");
-                                    Console.WriteLine("║");
-                                }
-
-                                Console.WriteLine("╚════════════════╝");
-
-                                ConsoleKey selectedTraverseOptionKey = Console.ReadKey().Key;
-                                switch (selectedTraverseOptionKey)
-                                {
-                                    case ConsoleKey.Enter:
-                                        choosingTraverseOption = false;
-                                        break;
-                                    case ConsoleKey.DownArrow:
-                                        if (selectedTraverseOption == traverseOptions.Length - 1) continue;
-                                        selectedTraverseOption++;
-                                        break;
-                                    case ConsoleKey.UpArrow:
-                                        if (selectedTraverseOption == 0) continue;
-                                        selectedTraverseOption--;
-                                        break;
-                                }
-                            }
-
-                            bool continueTraverseOptionOp = true;
-                            while (continueTraverseOptionOp)
-                            {
-                                Console.Clear();
-                                switch (selectedTraverseOption)
-                                {
-                                    case 0:
-                                        traversing = false;
-                                        continueTraverseOptionOp = false;
-                                        break;
-                                    case 1:
-                                        bst.PreorderConsole();
-                                        break;
-                                    case 2:
-                                        bst.InorderConsole();
-                                        break;
-                                    case 3:
-                                        bst.PostorderConsole();
-                                        break;
-                                    case 4:
-                                        bst.LevelorderConsole();
-                                        break;
-                                }
-
-                                if (continueTraverseOptionOp == false)
-                                    continue;
-                                bool inputTraverseContinueCorrectly = false;
-                                while (!inputTraverseContinueCorrectly)
-                                {
-                                    Console.Write("Do you want to continue? ");
-                                    ConsoleKey continueKey = Console.ReadKey().Key;
-                                    if (continueKey == ConsoleKey.Y)
-                                        inputTraverseContinueCorrectly = true;
-                                    else if (continueKey == ConsoleKey.N)
-                                    {
-                                        inputTraverseContinueCorrectly = true;
-                                        continueTraverseOptionOp = false;
-                                    }
-                                }
-                            }
+                            Console.Write($"{preorderedElem} ");
                         }
-
+                        Console.WriteLine("Inorder: ");
+                        foreach (var inorderedElem in inorderedElems)
+                            Console.Write($"{inorderedElem} ");
+                        Console.WriteLine("Postorder: ");
+                        foreach (var postorderedElem in postorderedElems)
+                            Console.Write($"{postorderedElem} ");
+                        Console.WriteLine("Level-order: ");
+                        foreach (var levelorderedElem in levelorderedElems)
+                            Console.Write($"{levelorderedElem} ");
                         break;
                     case 3:
                         if (bst.TotalNodes == 0) Console.WriteLine("The Binary Search Tree is empty!");
@@ -187,7 +120,9 @@ class Program
 
                             Console.WriteLine();
                         }
-
+                        break;
+                    case 4:
+                        bst.DisplayTreeConsole();
                         break;
                 }
 

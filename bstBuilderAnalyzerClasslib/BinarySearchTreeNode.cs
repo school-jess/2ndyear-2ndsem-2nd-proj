@@ -48,138 +48,33 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
         return $"{Data.ToString()}";
     }
 
-    public void PreorderConsole(string stringConnector, List<int> stringBranchConnection)
+    public List<T> Preorder(List<T> elements)
     {
-        if (stringConnector == "└──") // this the only way to know if traversing Right
-            stringBranchConnection.Remove(Level);
-        for (int i = 1; i < Level; i++)
-        {
-            if (stringBranchConnection.Contains(i))
-                Console.Write("│  ");
-            else
-                Console.Write("   ");
-        }
-
-        Console.Write(stringConnector);
-        Console.WriteLine(ToString());
-        string leftStringConnector = "└──";
-        if (Right != null)
-        {
-            leftStringConnector = "├──";
-            int stringBranchConnectionElemToAdd = Level + 1;
-            if (!stringBranchConnection.Contains(stringBranchConnectionElemToAdd))
-                stringBranchConnection.Add(stringBranchConnectionElemToAdd);
-        }
-
-        if (Left != null) Left.PreorderConsole(leftStringConnector, stringBranchConnection);
-        if (Right != null) Right.PreorderConsole("└──", stringBranchConnection);
+        elements.Add(Data);
+        Left?.Preorder(elements);
+        Right?.Preorder(elements);
+        return elements;
     }
 
-    public bool InorderConsole(bool shouldCountinue, T biggest)
+    public List<T> Inorder(List<T> elements)
     {
-        if (Left != null) Left.InorderConsole(shouldCountinue, biggest);
-        if (!shouldCountinue) return false;
-        Console.Clear();
-        Console.Write(ToString());
-        if (Data < biggest)
-        {
-            Console.WriteLine(" »");
-            bool inputShouldContinueKey = false;
-            while (!inputShouldContinueKey)
-            {
-                ConsoleKey shouldContinueKey = Console.ReadKey().Key;
-                switch (shouldContinueKey)
-                {
-                    case ConsoleKey.RightArrow:
-                        inputShouldContinueKey = true;
-                        break;
-                    case ConsoleKey.N:
-                        return false;
-                }
-            }
-        }
-        else Console.WriteLine();
-
-        if (Right != null) Right.InorderConsole(shouldCountinue, biggest);
-        return shouldCountinue;
+        if (Left != null) Left.Inorder(elements);
+        elements.Add(Data);
+        if (Right != null) Right.Inorder(elements);
+        return elements;
     }
 
-    public void PostorderConsole(string stringConnector, int treeHeight, bool hasSibling, int amtOfSpaces, bool isAlone)
+    public List<T> Postorder(List<T> elements)
     {
-        bool hasToConnect = stringConnector == "┴" && (Right != null || Left != null);
-        string leftChildStrConnector = "┐";
-        string rightChildStrConnector = "┴";
-        if (Left == null)
-        {
-            rightChildStrConnector = "─";
-            isAlone = true;
-            if (isAlone)
-                amtOfSpaces++;
-        }
-
-        if (Right == null)
-        {
-            leftChildStrConnector = "─";
-            isAlone = true;
-            if (isAlone)
-                amtOfSpaces++;
-        }
-
-        if (Left != null) Left.PostorderConsole(leftChildStrConnector, treeHeight, hasToConnect, amtOfSpaces, isAlone);
-        if (Right != null) Right.PostorderConsole(rightChildStrConnector, treeHeight, false, amtOfSpaces, isAlone);
-        if ((Left == null ^ Right == null) && !isAlone)
-        {
-            for (int i = 0; i < treeHeight; i++)
-                Console.Write(" ");
-        }
-
-        Console.Write(ToString());
-        if (Left == null && Right == null)
-            if ((Left == null && Right == null) && Level != treeHeight)
-                for (int i = 0; i < treeHeight; i++)
-                    Console.Write("─");
-        Console.Write(stringConnector);
-        if (hasSibling)
-        {
-//            Console.WriteLine(amtOfSpaces);
-            for (int i = 0; i < amtOfSpaces; i++) Console.Write(" ");
-            Console.Write("│");
-        }
-
-        if (stringConnector == "┐") Console.WriteLine();
+        if (Left != null) Left.Postorder(elements);
+        if (Right != null) Right.Postorder(elements);
+        elements.Add(Data);
+        return elements;
     }
 
-    public void PreorderGUI(Canvas canvas, T dataToSearch)
+    public void DisplayTreeConsole()
     {
-        if (Data > dataToSearch)
-        {
-            /*todo*/
-        }
 
-        if (Left != null) Left.PreorderGUI(canvas, dataToSearch);
-        if (Right != null) Right.PreorderGUI(canvas, dataToSearch);
-    }
-
-    public void InorderGUI(Canvas canvas, T dataToSearch)
-    {
-        if (Left != null) Left.InorderGUI(canvas, dataToSearch);
-        if (Data > dataToSearch)
-        {
-            /*todo*/
-        }
-
-        if (Right != null) Right.InorderGUI(canvas, dataToSearch);
-    }
-
-    public void PostorderGUI(Canvas canvas, T dataToSearch)
-    {
-        if (Left != null) Left.PostorderGUI(canvas, dataToSearch);
-        if (Data > dataToSearch)
-        {
-            /*todo*/
-        }
-
-        if (Right != null) Right.PostorderGUI(canvas, dataToSearch);
     }
 
     public void DisplayGUITree(Canvas canvas)

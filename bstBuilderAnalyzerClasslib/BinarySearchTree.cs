@@ -67,144 +67,50 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
             TreeHeight = curTreeHeight;
     }
 
-    public void PreorderConsole()
+    public List<T> Preorder()
     {
-        if (root == null) return;
-        root.PreorderConsole("", new List<int>());
+        if (root == null) return [];
+        List<T> elements = [];
+        elements = root.Preorder(elements);
+        return elements;
     }
 
-    public void InorderConsole()
+    public List<T> Inorder()
     {
-        if (root == null) return;
-        root.InorderConsole(true, Biggest);
+        if (root == null) return [];
+        List<T> elements = [];
+        elements = root.Inorder(elements);
+        return elements;
     }
 
-    public void PostorderConsole()
+    public List<T> Postorder()
     {
-        if (root == null) return;
-        int lenLessThanRoot = 0;
-        foreach (var leafNode in LeafNodes)
-            if (leafNode > root.Data)
-            {
-                lenLessThanRoot = LeafNodes.IndexOf(leafNode);
-                break;
-            }
-
-        root.PostorderConsole("", TreeHeight, false, lenLessThanRoot, false);
+        if (root == null) return [];
+        List<T> elements = [];
+        elements = root.Postorder(elements);
+        return elements;
     }
 
-    public void LevelorderConsole()
+    public List<T> Levelorder()
     {
-        if (root == null) return;
-        Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
-        Queue<string> bstNodeConnectors = new Queue<string>();
-        int[] noSiblings = new int[TreeHeight];
-        int curLevel = 0;
-        int curChild = 0;
-        bstNodes.Enqueue(root);
-        bstNodeConnectors.Enqueue("");
-        while (bstNodes.Count > 0)
-        {
-            BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
-            string curConnector = bstNodeConnectors.Dequeue();
-            if (curLevel != curElem.Level)
-            {
-                curLevel = curElem.Level;
-                curChild = 0;
-            }
-
-            if (curChild != 0 || curLevel == 1)
-                for (int i = 0; i < curLevel; i++)
-                    Console.Write("  ");
-            if (curLevel > 1 && curChild != 0)
-            {
-                if (noSiblings[curLevel - 1] - 2 > curChild)
-                {
-                    if (curConnector == "└") Console.Write(" │");
-                    else Console.Write("  ");
-                }
-                else
-                {
-                    Console.Write(" ");
-                }
-            }
-
-            Console.Write(curConnector);
-            if (curLevel > 1 && curChild != 0)
-            {
-                if (!(noSiblings[curLevel - 1] - 2 > curChild))
-                {
-                    int amtDashes = noSiblings[curLevel - 1] - curChild - 1;
-                    if (amtDashes == 0) amtDashes++;
-                    for (int i = 0; i < amtDashes; i++)
-                        Console.Write("─");
-                }
-            }
-
-            Console.Write(curElem.ToString());
-            if (curElem.Level != 0 && (curElem.Left != null || curElem.Right != null))
-                for (int i = 0; i < noSiblings[curLevel - 1] - curChild - 1; i++)
-                    Console.Write("─");
-            if (curElem.Right != null || curElem.Left != null)
-                Console.Write("┐");
-            if (curChild == 0 || (curElem.Left == null || curElem.Right == null))
-                Console.WriteLine();
-            string leftConnectorStr = "├";
-            if (curElem.Right == null) leftConnectorStr = "└";
-            if (curElem.Left != null)
-            {
-                bstNodes.Enqueue(curElem.Left);
-                bstNodeConnectors.Enqueue(leftConnectorStr);
-                noSiblings[curElem.Level]++;
-            }
-
-            if (curElem.Right != null)
-            {
-                bstNodes.Enqueue(curElem.Right);
-                bstNodeConnectors.Enqueue("└");
-                noSiblings[curElem.Level]++;
-            }
-
-            curChild++;
-        }
-
-        Console.WriteLine();
-    }
-
-    public void PreorderGUI(Canvas canvas, T dataToSearch)
-    {
-        if (root == null) return;
-        root.PreorderGUI(canvas, dataToSearch);
-    }
-
-    public void InorderGUI(Canvas canvas, T dataToSearch)
-    {
-        if (root == null) return;
-        root.InorderGUI(canvas, dataToSearch);
-    }
-
-    public void PostorderGUI(Canvas canvas, T dataToSearch)
-    {
-        if (root == null) return;
-        root.PostorderGUI(canvas, dataToSearch);
-    }
-
-    public void LevelorderGUI(Canvas canvas, T dataToSearch)
-    {
-        if (root == null) return;
+        if (root == null) return [];
+        List<T> elements = [];
         Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
         bstNodes.Enqueue(root);
         while (bstNodes.Count > 0)
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
-            if (curElem.Data > dataToSearch)
-            {
-                /*todo*/
-            }
-
+            elements.Add(curElem.Data);
             if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
             if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
+        return elements;
+    }
+
+    public void DisplayTreeConsole()
+    {
+        if (root == null) return;
+        root.DisplayTreeConsole();
     }
 
     public void DisplayGUITree(Canvas canvas)
