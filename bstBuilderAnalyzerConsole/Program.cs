@@ -84,11 +84,11 @@ class Program
                     case 2:
                         continueMainOptionOp = false;
                         string[] traverseOptions = ["exit", "preorder", "inorder", "postorder", "level-order"];
+                        int selectedTraverseOption = 0;
                         bool traversing = true;
                         while (traversing)
                         {
                             bool choosingTraverseOption = true;
-                            int selectedTraverseOption = 0;
                             while (choosingTraverseOption)
                             {
                                 Console.Clear();

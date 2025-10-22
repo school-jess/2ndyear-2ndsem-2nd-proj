@@ -1,6 +1,5 @@
 using Xunit;
 using Xunit.Abstractions;
-
 using bstBuilderAnalyzerClasslib;
 
 namespace tests;
@@ -23,21 +22,22 @@ public class UnitTest1
         bst.Insert(50);
         bst.Insert(25);
         bst.Insert(14);
-        // bst.Insert(36);
+        bst.Insert(36);
         // bst.Insert(40);
         bst.Insert(75);
         bst.Insert(60);
-        // bst.Insert(84);
+        bst.Insert(84);
         // bst.Insert(79);
         // bst.Insert(78);
         // bst.Insert(80);
         // bst.Insert(90);
         bst.PostorderConsole();
         var output = stringWriter.ToString().Trim();
+        _output.WriteLine(output);
         Assert.Contains(@"14┐
-  25┐
-60┐ │
-  75┴50", output);
+36┴25┐
+60┐  │
+84┴75┴50", output);
     }
 
     [Fact]
@@ -67,5 +67,31 @@ public class UnitTest1
      │└36
      ├─60
      └─84", output);
+    }
+
+    [Fact]
+    public void Test3()
+    {
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+        BinarySearchTree<int> bst = new BinarySearchTree<int>();
+        bst.Insert(50);
+        bst.Insert(25);
+//        bst.Insert(14);
+        bst.Insert(36);
+        // bst.Insert(40);
+        bst.Insert(75);
+        bst.Insert(60);
+        bst.Insert(84);
+        // bst.Insert(79);
+        // bst.Insert(78);
+        // bst.Insert(80);
+        // bst.Insert(90);
+        bst.PostorderConsole();
+        var output = stringWriter.ToString().Trim();
+        _output.WriteLine(output);
+        Assert.Contains(@"36─25┐
+60┐  │
+84┴75┴50", output);
     }
 }

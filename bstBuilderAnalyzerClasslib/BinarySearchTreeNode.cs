@@ -59,6 +59,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
             else
                 Console.Write("   ");
         }
+
         Console.Write(stringConnector);
         Console.WriteLine(ToString());
         string leftStringConnector = "└──";
@@ -69,6 +70,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
             if (!stringBranchConnection.Contains(stringBranchConnectionElemToAdd))
                 stringBranchConnection.Add(stringBranchConnectionElemToAdd);
         }
+
         if (Left != null) Left.PreorderConsole(leftStringConnector, stringBranchConnection);
         if (Right != null) Right.PreorderConsole("└──", stringBranchConnection);
     }
@@ -97,6 +99,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
             }
         }
         else Console.WriteLine();
+
         if (Right != null) Right.InorderConsole(shouldCountinue, biggest);
         return shouldCountinue;
     }
@@ -115,17 +118,23 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
                 for (int i = 0; i < treeHeight; i++)
                     Console.Write("─");
         Console.Write(stringConnector);
+
         if (hasSibling)
         {
             for (int i = 0; i < amtOfSpaces; i++) Console.Write(" ");
             Console.Write("│");
         }
+
         if (stringConnector == "┐") Console.WriteLine();
     }
 
     public void PreorderGUI(Canvas canvas, T dataToSearch)
     {
-        if (Data > dataToSearch) {/*todo*/}
+        if (Data > dataToSearch)
+        {
+            /*todo*/
+        }
+
         if (Left != null) Left.PreorderGUI(canvas, dataToSearch);
         if (Right != null) Right.PreorderGUI(canvas, dataToSearch);
     }
@@ -133,16 +142,23 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
     public void InorderGUI(Canvas canvas, T dataToSearch)
     {
         if (Left != null) Left.InorderGUI(canvas, dataToSearch);
-        if (Data > dataToSearch) {/*todo*/}
+        if (Data > dataToSearch)
+        {
+            /*todo*/
+        }
+
         if (Right != null) Right.InorderGUI(canvas, dataToSearch);
     }
 
     public void PostorderGUI(Canvas canvas, T dataToSearch)
     {
         if (Left != null) Left.PostorderGUI(canvas, dataToSearch);
-        if (Data > dataToSearch) {/*todo*/}
-        if (Right != null) Right.PostorderGUI(canvas, dataToSearch);
+        if (Data > dataToSearch)
+        {
+            /*todo*/
+        }
 
+        if (Right != null) Right.PostorderGUI(canvas, dataToSearch);
     }
 
     public void DisplayGUITree(Canvas canvas)
