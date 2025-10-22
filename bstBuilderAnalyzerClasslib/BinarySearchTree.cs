@@ -89,6 +89,7 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
                 lenLessThanRoot = LeafNodes.IndexOf(leafNode);
                 break;
             }
+
         root.PostorderConsole("", TreeHeight, false, lenLessThanRoot);
     }
 
@@ -111,10 +112,35 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
                 curLevel = curElem.Level;
                 curChild = 0;
             }
-            if (curChild <= 1)
+
+            if (curChild != 0 || curLevel == 1)
                 for (int i = 0; i < curLevel; i++)
                     Console.Write("  ");
+            if (curLevel > 1 && curChild != 0)
+            {
+                if (noSiblings[curLevel - 1] - 2 > curChild)
+                {
+                    if (curConnector == "└") Console.Write(" │");
+                    else Console.Write("  ");
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+            }
+
             Console.Write(curConnector);
+            if (curLevel > 1 && curChild != 0)
+            {
+                if (!(noSiblings[curLevel - 1] - 2 > curChild))
+                {
+                    int amtDashes = noSiblings[curLevel - 1] - curChild - 1;
+                    if (amtDashes == 0) amtDashes++;
+                    for (int i = 0; i < amtDashes; i++)
+                        Console.Write("─");
+                }
+            }
+
             Console.Write(curElem.ToString());
             if (curElem.Level != 0 && (curElem.Left != null || curElem.Right != null))
                 for (int i = 0; i < noSiblings[curLevel - 1] - curChild - 1; i++)
@@ -131,14 +157,17 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
                 bstNodeConnectors.Enqueue(leftConnectorStr);
                 noSiblings[curElem.Level]++;
             }
+
             if (curElem.Right != null)
             {
                 bstNodes.Enqueue(curElem.Right);
                 bstNodeConnectors.Enqueue("└");
                 noSiblings[curElem.Level]++;
             }
+
             curChild++;
         }
+
         Console.WriteLine();
     }
 
@@ -168,7 +197,11 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
         while (bstNodes.Count > 0)
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
-            if (curElem.Data > dataToSearch) {/*todo*/}
+            if (curElem.Data > dataToSearch)
+            {
+                /*todo*/
+            }
+
             if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
             if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
