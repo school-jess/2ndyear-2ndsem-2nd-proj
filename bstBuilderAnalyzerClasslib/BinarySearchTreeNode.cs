@@ -109,13 +109,30 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
         bool hasToConnect = stringConnector == "┴" && (Right != null || Left != null);
         string leftChildStrConnector = "┐";
         string rightChildStrConnector = "┴";
-        if (Left == null) rightChildStrConnector = "─";
-        if (Right == null) leftChildStrConnector = "─";
-        if (Left != null) Left.PostorderConsole(leftChildStrConnector, treeHeight, hasToConnect, amtOfSpaces);
-        if (Right != null) Right.PostorderConsole(rightChildStrConnector, treeHeight, false, amtOfSpaces);
-        if ((Left == null ^ Right == null) && isAlone)
+        if (Left == null)
+        {
+            rightChildStrConnector = "─";
+            isAlone = true;
+            if (isAlone)
+                amtOfSpaces++;
+        }
+
+        if (Right == null)
+        {
+            leftChildStrConnector = "─";
+            isAlone = true;
+            if (isAlone)
+                amtOfSpaces++;
+        }
+
+        if (Left != null) Left.PostorderConsole(leftChildStrConnector, treeHeight, hasToConnect, amtOfSpaces, isAlone);
+        if (Right != null) Right.PostorderConsole(rightChildStrConnector, treeHeight, false, amtOfSpaces, isAlone);
+        if ((Left == null ^ Right == null) && !isAlone)
+        {
             for (int i = 0; i < treeHeight; i++)
                 Console.Write(" ");
+        }
+
         Console.Write(ToString());
         if (Left == null && Right == null)
             if ((Left == null && Right == null) && Level != treeHeight)
@@ -124,6 +141,7 @@ public class BinarySearchTreeNode<T> where T : IComparisonOperators<T, T, bool>
         Console.Write(stringConnector);
         if (hasSibling)
         {
+//            Console.WriteLine(amtOfSpaces);
             for (int i = 0; i < amtOfSpaces; i++) Console.Write(" ");
             Console.Write("│");
         }
