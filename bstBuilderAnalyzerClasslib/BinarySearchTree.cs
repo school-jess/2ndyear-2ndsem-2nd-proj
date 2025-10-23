@@ -70,47 +70,73 @@ public class BinarySearchTree<T> where T : IComparisonOperators<T, T, bool>
     public List<T> Preorder()
     {
         if (root == null) return [];
-        List<T> elements = [];
-        elements = root.Preorder(elements);
-        return elements;
+        List<T> preorderElems = [];
+        preorderElems = root.Preorder(preorderElems);
+        return preorderElems;
     }
 
     public List<T> Inorder()
     {
         if (root == null) return [];
-        List<T> elements = [];
-        elements = root.Inorder(elements);
-        return elements;
+        List<T> inOrderElems = [];
+        inOrderElems = root.Inorder(inOrderElems);
+        return inOrderElems;
     }
 
     public List<T> Postorder()
     {
         if (root == null) return [];
-        List<T> elements = [];
-        elements = root.Postorder(elements);
-        return elements;
+        List<T> postOrderElems = [];
+        postOrderElems = root.Postorder(postOrderElems);
+        return postOrderElems;
     }
 
     public List<T> Levelorder()
     {
         if (root == null) return [];
-        List<T> elements = [];
+        List<T> levelOrderElems = [];
         Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
         bstNodes.Enqueue(root);
         while (bstNodes.Count > 0)
         {
             BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
-            elements.Add(curElem.Data);
+            levelOrderElems.Add(curElem.Data);
             if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
             if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
         }
-        return elements;
+
+        return levelOrderElems;
     }
 
     public void DisplayTreeConsole()
     {
         if (root == null) return;
-        root.DisplayTreeConsole(TreeHeight);
+        Queue<BinarySearchTreeNode<T>> bstNodes = new Queue<BinarySearchTreeNode<T>>();
+        bstNodes.Enqueue(root);
+        int curLevel = 0;
+        while (bstNodes.Count > 0)
+        {
+            BinarySearchTreeNode<T> curElem = bstNodes.Dequeue();
+            if (curLevel != curElem.Level)
+            {
+                curLevel = curElem.Level;
+                Console.WriteLine();
+                for (int i = 0; i < TreeHeight;i++)
+                    Console.Write(" ");
+                Console.Write("/\\");
+                Console.WriteLine();
+            }
+            for (int i = curLevel;i<TreeHeight ;i++)
+            {
+                Console.Write(" ");
+            }
+
+            Console.Write(curElem);
+            if (curLevel == curElem.Level)
+                Console.Write(" ");
+            if (curElem.Left != null) bstNodes.Enqueue(curElem.Left);
+            if (curElem.Right != null) bstNodes.Enqueue(curElem.Right);
+        }
     }
 
     public void DisplayGUITree(Canvas canvas)

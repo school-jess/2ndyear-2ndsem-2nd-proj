@@ -86,7 +86,7 @@ class Program
                         List<int> inorderedElems = bst.Inorder();
                         List<int> postorderedElems = bst.Postorder();
                         List<int> levelorderedElems = bst.Levelorder();
-                        Console.WriteLine("Preorder: ");
+                        Console.Write("Preorder: ");
                         foreach (var preorderedElem in preorderedElems)
                             Console.Write($"{preorderedElem} ");
                         Console.WriteLine();
